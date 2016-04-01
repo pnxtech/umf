@@ -29,17 +29,6 @@
       * [5.2 Message routing](#Message routing)
         * [5.2.1 Message forwarding](#Message forwarding)
 
-
-
-
-
-
-
-
-
-
-
-
 <a name="Introduction"/>
 ## 1. Introduction
 
