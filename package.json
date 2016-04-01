@@ -1,0 +1,28 @@
+{
+  "name": "umf",
+  "version": "1.2.0",
+  "description": "Universal Messaging Format",
+  "main": "",
+  "keywords": [
+    "umf",
+    "message",
+    "messging",
+    "websocket",
+    "socket",
+    "spec",
+    "specification",
+    "universal",
+    "message queue",
+    "queue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjus/umf.git"
+  },
+  "author": "Carlos Justiniano <carlos.justiniano@gmail.com> (http://cjus.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cjus/umf/issues"
+  },
+  "homepage": "https://github.com/cjus/umf"
+}
