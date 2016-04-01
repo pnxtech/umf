@@ -1,5 +1,7 @@
 # Universal Messaging Format
-> version: 1.2 | Based on this prior work: https://github.com/cjus/umf_router
+A message format specification for use with distributed applications.
+ 
+> version: 1.2.1 | Based on this prior work: https://github.com/cjus/umf_router
 
 # Table of Contents
 
@@ -29,14 +31,16 @@
       * [5.2 Message routing](#Message routing)
         * [5.2.1 Message forwarding](#Message forwarding)
 
-<a name="Introduction"/>
+---
+
+<a name="Introduction"></a>
 ## 1. Introduction
 
 This specification describes an application-level messaging format suitable for use with WebSockets, Message Queuing and in traditional HTTP JSON payloads. The proposed message format is designed as a replacement format to avoid using inconsistent formats.
 
 From this point forward we’ll refer to the Universal Messaging Format as UMF. We’ll also refer to UMFs as documents because they can be stored in memory, transmitted along communication channels and retained in offline storage and message queues.
 
-<a name="Message Format"/>
+<a name="Message Format"></a>
 ## 2. Message Format
 
 The UMF is a valid JSON document that is required to validate with existing JSON validators and thus be fully compliant with the JSON specification.
@@ -50,7 +54,7 @@ JSON Specification: http://www.json.org/
 
 JSON is a data interchange format based on JavaScript Object Notation. As such, UMF which is encoded in JSON, follows well established JavaScript naming conventions. For example, UMF retains the use of camel case for compound names.
 
-<a name="Envelope format"/>
+<a name="Envelope format"></a>
 ### 2.1 Envelope format
 
 UMF uses an envelope format where the outer portion is a valid JSON object and the inner portion consist of directives (headers) and a message body. Variations of this approach is used in the SOAP XML format where the outer portion is called an envelope and the inner portion contains both header and body sections. In other formats headers and body may be side by side as is the case of HTTP.
@@ -75,17 +79,17 @@ In UMF the inner portion consists of UMF reserved key/value pairs with an option
 
 Only UMF reserved words may be used. However, application specific (custom) key/value pairs may be used freely inside the `body` value.  This strict requirement ensures that the message format has a strict agreed upon format as defined by its version number.
 
-<a name="Envelop format considerations for routing"/>
+<a name="Envelop format considerations for routing"></a>
 ## 2.1.1 Envelop format considerations for routing
 
 A UMF message is considered to be a system routable message. The UMF message fields aid first and foremost in routing but can also secondarily be used by message processing systems (i.e. message handlers) to obtain additional routing related fields.  However, the fields are reserved for routing systems and not intended to be extensible with application specific fields.  Where application specific fields are needs they should be placed in the `body` value instead.
 
-<a name="Reserved Fields"/>
+<a name="Reserved Fields"></a>
 ## 2.2 Reserved Fields
 
 As described earlier UMF consists of reserved key/value pairs with an optional embedded body object.  This section describes each of the reserved fields and their intended use. A reserved field consists of a name key followed by a value which is encoded in a strict format. As we’ll see later in this specification, only the body field differs from this requirement.  The take-away here is that a reserved field has a value content which follows a strict format.
 
-<a name="Mid field (Message ID)"/>
+<a name="Mid field (Message ID)"></a>
 ### 2.2.1 Mid field (Message ID)
 
 Each message must contain an mid field with a universally unique identifier (UUID) as a value.
@@ -108,7 +112,7 @@ Because UMF is an asynchronous message format, an individual message may be gene
 
 The mid field is a required field.
 
-<a name="Rmid field (Refers to Message ID)"/>
+<a name="Rmid field (Refers to Message ID)"></a>
 ### 2.2.2 Rmid field (Refers to Message ID)
 
 The Refers to Message ID (`rmid`) is a method of specifying that a message refers to another message.  The use of the rmid field is helpful in the case of a message that requires a reply, or where a reply finalizes or changes an application's state machine. This is also useful in threaded conversations there a message may be sent in reply to another pre-existing message.
@@ -117,7 +121,7 @@ An important use-case for the `rmid` field is when it's desirable to trace the p
 
 The rmid field is NOT a required field.
 
-<a name=" To field (routing)"/>
+<a name=" To field (routing)"></a>
 ### 2.2.3 To field (routing)
 
 The `to` field is used to specify message routing.  A message may be routed to other users, internal application handlers or to other remote servers. Additionally, a message could be routed directly to an API server with careful use of the value specified in the `to`.
@@ -164,7 +168,7 @@ The use of the colon (:) or forward slash (/) separator is intended to simplify 
 
 The `to` field is a required field and must be present in all messages.
 
-<a name="Forward field (routing)"/>
+<a name="Forward field (routing)"></a>
 ### 2.2.4 Forward field (routing)
 
 The `forward` field can be used to designate where a message should be sent to.  Potential uses include:
@@ -182,7 +186,7 @@ Example:
 }
 ```
 
-<a name="From field (routing)"/>
+<a name="From field (routing)"></a>
 ### 2.2.5 From field (routing)
 
 The `from` field is used to specify a source during message routing.  Like the `to` field, the value of a `from` field is a colon or forward slash separated list of sub names.
@@ -209,7 +213,7 @@ The use of the colon (:) or forward slash (/) separator is intended to simplify 
 
 The `from` field is a required field and must be present in all messages.
 
-<a name="Type field (message type)"/>
+<a name="Type field (message type)"></a>
 ### 2.2.6 Type field (message type)
 
 The message type field describes a message as being of a particular classification.
@@ -237,7 +241,7 @@ An application developer may choose to implement a sub message type inside of th
 
 However, the message will still be handled as a generic message (msg) by other servers and infrastructure components which may or may not inspect the contents of the custom body object.  For this reason it’s recommended that standard type fields be used whenever possible.
 
-<a name="Version field"/>
+<a name="Version field"></a>
 ### 2.2.7 Version field
 
 UMF messages have a `version` field that identifies the version format for a given message.
@@ -249,7 +253,7 @@ UMF messages have a `version` field that identifies the version format for a giv
 }
 ```
 
-The `version` value format is of the form of "umf/major version . minor version . revision version". The version field should begin with  `UMF/` (in caps) to identify the JSON as a UMF compatible messsage.
+The `version` value format is of the form of "umf/major version . minor version . revision version". The version field should begin with  `UMF/` (in caps) to identify the JSON as a UMF compatible message.
 
 > "...the major number is increased when there are significant jumps in functionality, the minor number is incremented when only minor features or significant fixes have been added, and the revision number is incremented when minor bugs are fixed." - http://en.wikipedia.org/wiki/Software_versioning
 
@@ -257,7 +261,7 @@ Applications implementing UMF may choose to only consider the major and minor ve
 
 The version field is a required field, must be present in all messages and is required to include both a major and minor version number.
 
-<a name="Priority field"/>
+<a name="Priority field"></a>
 ### 2.2.8 Priority field
 
 UMF documents may include an optional `priority` field.  If not present a default value equal to default priority is assumed. If present, priority field values are in the range of 10 (highest) to 1 (lowest).  
@@ -282,7 +286,7 @@ In addition to numeric values the strings “low”,”normal”,”high” may 
 
 The `priority` field is NOT a required field and defaults to “normal” priority if unspecified.
 
-<a name="Timestamp field"/>
+<a name="Timestamp field"></a>
 ### 2.2.9 Timestamp field
 
 UMF supports a timestamp field which indicates when a message was sent. The format for a timestamp is ISO 8601, a standard date format. http://en.wikipedia.org/wiki/ISO_8601
@@ -304,7 +308,7 @@ There are a number of reasons why message timestamps are useful:
 
 The `timestamp` field is a required UMF field.
 
-<a name="Ttl field (time to live)"/>
+<a name="Ttl field (time to live)"></a>
 ### 2.2.10 Ttl field (time to live)
 
 The `ttl` field is used to specify how long a message may remain alive within a system. The value of this field is an amount of time specified in seconds.
@@ -318,7 +322,7 @@ The `ttl` field is used to specify how long a message may remain alive within a 
 
 The `ttl` field is optional and if not present in a UMF document the default is a `ttl` which never expires.
 
-<a name="Body field (application level data)"/>
+<a name="Body field (application level data)"></a>
 ### 2.2.11 Body field (application level data)
 
 The `body` field is used to host an application-level custom object.  This is where an application may define a message content which is meaningful in the context of its application.
@@ -340,7 +344,7 @@ The `body` field is used to host an application-level custom object.  This is wh
 
 In the example above a user receives confirmation of a purchase (power-up item) from the game store, the items can then be added to the user’s inventory.
 
-<a name="Overriding UMF restricted key / value pairs"/>
+<a name="Overriding UMF restricted key / value pairs"></a>
 #### 2.2.11.1 Overriding UMF restricted key / value pairs
 
 As mentioned earlier UMF restricted fields may not be used in occurrence to this specification, however, an application may override UMF restricted fields by including those fields in it's custom `body` object.
@@ -353,7 +357,7 @@ The following are potential use-cases:
 
 The application level code is free to override the meaning of UMF restricted keys by looking inside its `body` object for potential overrides.
 
-<a name="Sending binary data"/>
+<a name="Sending binary data"></a>
 #### 2.2.11.2 Sending binary data
 
 Binary or encrypted / encoded messages may be sent via the UFM by using a JSON compatible data convertor such as Base64 http://en.wikipedia.org/wiki/Base64
@@ -377,7 +381,7 @@ When using a converter the base format should be indicated in a user level field
 
 In this way, audio and images may be transmitted via UMF.
 
-<a name="Sending multiple application messages"/>
+<a name="Sending multiple application messages"></a>
 #### 2.2.11.3 Sending multiple application messages
 
 An application may, for efficiency reasons, decide to bundle multiple sub-messages inside of a single UMF document. The recommended method of doing this to define a body object which contains one or more sub messages.
@@ -416,7 +420,7 @@ An application may, for efficiency reasons, decide to bundle multiple sub-messag
 
 In the example above messages consists of an array of objects.
 
-<a name="Use inside of HTTP"/>
+<a name="Use inside of HTTP"></a>
 # 3. Use inside of HTTP
 
 UMF documents may be sent via HTTP request and responses.  Proper use requires setting HTTP content header, Content-Type: application/javascript
@@ -442,7 +446,7 @@ Content - Length:length
 }
 ```
 
-<a name="Peer-to-Peer Communication"/>
+<a name="Peer-to-Peer Communication"></a>
 # 4. Peer-to-Peer Communication
 
 UMF documents may be used to exchange P2P messages between distributed services.  One example of this would be a service which sends its application health status to a monitoring and data aggregation service.
@@ -467,20 +471,20 @@ For example:
 
 In the example above game server is sending a message to the stats:server indicating its stats at UTC 2013-09-29T10:40Z.
 
-<a name="Infrastructure considerations"/>
+<a name="Infrastructure considerations"></a>
 # 5. Infrastructure considerations
 
-<a name="Message storage"/>
+<a name="Message storage"></a>
 ## 5.1 Message storage
 
 UMF is designed with distributed servers in mind. The use of mid’s (unique message IDs) allows messages to be stored by their message id in servers such as Redis, MongoDB and in other data stores / databases.
 
-<a name="Message routing"/>
+<a name="Message routing"></a>
 ## 5.2 Message routing
 
 The use of the UMF `to` and `from` fields support message routing. The implementation of message routers is deferred to UMF implementers.  The use of colon and forward slash separators is intended to allow routes to easily parse for target handlers.
 
-<a name="Message forwarding"/>
+<a name="Message forwarding"></a>
 ### 5.2.1 Message forwarding
 
 It’s possible to route message between (through) servers by implementing message forwarding.
