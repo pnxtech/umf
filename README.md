@@ -1,7 +1,7 @@
 # Universal Messaging Format
 A message format specification for use with distributed applications.
  
-> version: 1.2.1 | Based on this prior work: https://github.com/cjus/umf_router
+> version: 1.2.2 | Based on this prior work: https://github.com/cjus/umf_router
 
 # Table of Contents
 
@@ -217,6 +217,13 @@ The `from` field is a required field and must be present in all messages.
 ### 2.2.6 Type field (message type)
 
 The message type field describes a message as being of a particular classification.
+
+```javascript
+{
+  :
+  "type":"event"
+}
+```
 
 The type field is a NOT a required field.  If type is missing from a message, a type of `msg` is assumed:
 
