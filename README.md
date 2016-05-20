@@ -1,7 +1,13 @@
 # Universal Messaging Format
 A message format specification for use with distributed applications.
- 
-> version: 1.2.2 | Based on this prior work: https://github.com/cjus/umf_router
+
+## License
+
+UMF is licensed under the Open Source [The MIT License (MIT)](https://github.com/cjus/umf/blob/master/LICENSE) and authored by Carlos Justiniano ([cjus34@gmail.com](mailto:cjus34@gmail.com))
+
+This specification is hosted on Github at: [https://github.com/cjus/umf](https://github.com/cjus/umf)
+
+> This work is based this prior work: https://github.com/cjus/umf_router
 
 # Table of Contents
 
@@ -68,7 +74,7 @@ In UMF the inner portion consists of UMF reserved key/value pairs with an option
   "to": "uid:123",
   "from": "uid:56",
   "type": "dm",
-  "version": "1.0",
+  "version": "UMF/1.2",
   "priority": "10",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
@@ -339,7 +345,7 @@ The `body` field is used to host an application-level custom object.  This is wh
   "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
   "to": "uid:56",
   "from": "game:store",
-  "version": "1.0",
+  "version": "UMF/1.2",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
     "type": "store:purchase",
@@ -376,7 +382,7 @@ When using a converter the base format should be indicated in a user level field
   "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
   "to": "uid:134",
   "from": "uid:56",
-  "version": "1.0",
+  "version": "UMF/1.2",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
     "type": "private:message",
@@ -398,7 +404,7 @@ An application may, for efficiency reasons, decide to bundle multiple sub-messag
   "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
   "to": "uid:134",
   "from": "chat:room:14",
-  "version": "1.0",
+  "version": "UMF/1.2",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
     "type": "chat:messages",
@@ -444,7 +450,7 @@ Content - Length:length
   "to": "uid:123",
   "from": "uid:56",
   "type": "dm",
-  "version": "1.0",
+  "version": "UMF/1.2",
   "priority": "10",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
@@ -465,7 +471,7 @@ For example:
   "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
   "to": "stats:server",
   "from": "chat:server:23",
-  "version": "1.0",
+  "version": "UMF/1.2",
   "priority": "10",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
@@ -476,7 +482,7 @@ For example:
 }
 ```
 
-In the example above game server is sending a message to the stats:server indicating its stats at UTC 2013-09-29T10:40Z.
+In the example above a game server is sending a message to the stats:server indicating its stats at UTC 2013-09-29T10:40Z.
 
 <a name="Infrastructure considerations"></a>
 # 5. Infrastructure considerations
