@@ -1,13 +1,12 @@
 # Universal Messaging Format
 A message format specification for use with distributed applications.
 
-## License
+### Version
+The current version of this specification is: UMF/1.2.4
 
-UMF is licensed under the Open Source [The MIT License (MIT)](https://github.com/cjus/umf/blob/master/LICENSE) and authored by Carlos Justiniano ([cjus34@gmail.com](mailto:cjus34@gmail.com))
+### License
 
-This specification is hosted on Github at: [https://github.com/cjus/umf](https://github.com/cjus/umf)
-
-> This work is based this prior work: https://github.com/cjus/umf_router
+UMF is licensed under the Open Source [The MIT License (MIT)](https://github.com/cjus/umf/blob/master/LICENSE) and authored by Carlos Justiniano ([cjus34@gmail.com](mailto:cjus34@gmail.com))  This specification is hosted on Github at: [https://github.com/cjus/umf](https://github.com/cjus/umf)
 
 # Table of Contents
 
@@ -436,13 +435,13 @@ In the example above messages consists of an array of objects.
 <a name="Use inside of HTTP"></a>
 # 3. Use inside of HTTP
 
-UMF documents may be sent via HTTP request and responses.  Proper use requires setting HTTP content header, Content-Type: application/javascript
+UMF documents may be sent via HTTP request and responses.  Proper use requires setting HTTP content header, Content-Type: application/json
 
 ```javascript
 POST http://server.com/api/v1/message HTTP/1.1
 Host: server.com
-Content-Type: application / javascript; charset=utf-8
-Content - Length:length
+Content-Type: application/json; charset=utf-8
+Content-Length: {length}
 
 {
   "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
