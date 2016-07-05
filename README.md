@@ -2,7 +2,7 @@
 A message format specification for use with distributed applications.
 
 ### Version
-The current version of this specification is: UMF/1.2.4
+The current version of this specification is: UMF/1.3
 
 ### License
 
@@ -29,6 +29,7 @@ UMF is licensed under the Open Source [The MIT License (MIT)](https://github.com
         * [2.2.11.1 Overriding UMF restricted key / value pairs](#Overriding UMF restricted key / value pairs)
         * [2.2.11.2 Sending binary data](#Sending binary data)
         * [2.2.11.3 Sending multiple application messages](#Sending multiple application messages)
+      * [2.2.12 Authorization field](#Authorization field) 
     * [3. Use inside of HTTP](#Use inside of HTTP)
     * [4. Peer-to-Peer Communication](#Peer-to-Peer Communication)
     * [5. Infrastructure considerations](#Infrastructure considerations)
@@ -73,11 +74,11 @@ In UMF the inner portion consists of UMF reserved key/value pairs with an option
   "to": "uid:123",
   "from": "uid:56",
   "type": "dm",
-  "version": "UMF/1.2",
+  "version": "UMF/1.3",
   "priority": "10",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
-    "message": "What’s up yo?"
+    "message": "How is it going?"
   }
 }
 ```
@@ -246,7 +247,7 @@ An application developer may choose to implement a sub message type inside of th
   :
   "body":{
     "type":"chat",
-    "message":"What’s up yo?"
+    "message":"How is it going?"
   }
 }
 ```
@@ -261,7 +262,7 @@ UMF messages have a `version` field that identifies the version format for a giv
 ```javascript
 {
   :
-  "version": "UMF/1.2"
+  "version": "UMF/1.3"
 }
 ```
 
@@ -344,7 +345,7 @@ The `body` field is used to host an application-level custom object.  This is wh
   "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
   "to": "uid:56",
   "from": "game:store",
-  "version": "UMF/1.2",
+  "version": "UMF/1.3",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
     "type": "store:purchase",
@@ -381,7 +382,7 @@ When using a converter the base format should be indicated in a user level field
   "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
   "to": "uid:134",
   "from": "uid:56",
-  "version": "UMF/1.2",
+  "version": "UMF/1.3",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
     "type": "private:message",
@@ -403,7 +404,7 @@ An application may, for efficiency reasons, decide to bundle multiple sub-messag
   "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
   "to": "uid:134",
   "from": "chat:room:14",
-  "version": "UMF/1.2",
+  "version": "UMF/1.3",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
     "type": "chat:messages",
@@ -432,6 +433,28 @@ An application may, for efficiency reasons, decide to bundle multiple sub-messag
 
 In the example above messages consists of an array of objects.
 
+<a name="Authorization field"></a>
+### 2.2.12 Authorization field
+
+The `authorization` field is used to pass an HTTP authorization value or authentication token.
+
+```javascript
+{
+  "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
+  "to": "uid:56",
+  "from": "game:store",
+  "version": "UMF/1.3",
+  "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ",
+  "timestamp": "2013-09-29T10:40Z",
+  "body": {
+    "type": "store:purchase",
+    "itemID": "5x:winnings:multiplier",
+    "expiration": "2014-02-10T10:40Z"
+  }
+}
+```
+In the example above the authorization field contains a JSON Web Token.
+
 <a name="Use inside of HTTP"></a>
 # 3. Use inside of HTTP
 
@@ -449,11 +472,11 @@ Content-Length: {length}
   "to": "uid:123",
   "from": "uid:56",
   "type": "dm",
-  "version": "UMF/1.2",
+  "version": "UMF/1.3",
   "priority": "10",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
-    "message": "What’s up yo?"
+    "message": "How is it going?"
   }
 }
 ```
@@ -470,7 +493,7 @@ For example:
   "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
   "to": "stats:server",
   "from": "chat:server:23",
-  "version": "UMF/1.2",
+  "version": "UMF/1.3",
   "priority": "10",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
