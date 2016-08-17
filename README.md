@@ -2,7 +2,7 @@
 A message format specification for use with distributed applications.
 
 ### Version
-The current version of this specification is: UMF/1.4, which introduces UMF short form syntax for use with IoT applications.
+The current version of this specification is: UMF/1.4.2, which introduces the `for` keyword.
 
 ### License
 

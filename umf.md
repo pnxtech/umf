@@ -2,7 +2,7 @@
 A message format specification for use with distributed applications.
 
 ### Version
-The current version of this specification is: UMF/1.4, which introduces UMF short form syntax for use with IoT applications.
+The current version of this specification is: UMF/1.4.2, which introduces the `for` keyword.
 
 ### License
 
@@ -30,6 +30,7 @@ UMF is licensed under the Open Source [The MIT License (MIT)](https://github.com
         * [2.2.11.2 Sending binary data](#Sending binary data)
         * [2.2.11.3 Sending multiple application messages](#Sending multiple application messages)
       * [2.2.12 Authorization field](#Authorization field)
+      * [2.2.13 For - on behalf of](#For - on behalf of)
   * [3. Use inside of HTTP](#Use inside of HTTP)
   * [4. Peer-to-Peer Communication](#Peer-to-Peer Communication)
   * [5. Infrastructure considerations](#Infrastructure considerations)
@@ -456,6 +457,13 @@ The `authorization` field is used to pass an HTTP authorization value or authent
 ```
 In the example above the authorization field contains a JSON Web Token.
 
+<a name="For - on behalf of"></a>
+### 2.2.13 For - on behalf of
+
+The `for` field is used to indicate who a message is being send on behalf of. This helps support the use-case where a message may not be sent by an actual client but instead created by a service on behalf of a client. In this case routable information needs to be sent to help associate the entity which may ultimately require notification.
+
+The value of the `for` field is left up to the host application, but the use of unique hashes are recommended.
+
 <a name="Use inside of HTTP"></a>
 # 3. Use inside of HTTP
 
@@ -548,6 +556,7 @@ Keyword | Abbreviation
 --- | ---
 authorization | aut
 body | bdy
+for | for
 forward | fwd
 from | frm
 mid | mid
