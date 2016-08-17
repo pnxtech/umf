@@ -2,7 +2,7 @@
 A message format specification for use with distributed applications.
 
 ### Version
-The current version of this specification is: UMF/1.3
+The current version of this specification is: UMF/1.4, which introduces UMF short form syntax for use with IoT applications.
 
 ### License
 
@@ -29,14 +29,14 @@ UMF is licensed under the Open Source [The MIT License (MIT)](https://github.com
         * [2.2.11.1 Overriding UMF restricted key / value pairs](#Overriding UMF restricted key / value pairs)
         * [2.2.11.2 Sending binary data](#Sending binary data)
         * [2.2.11.3 Sending multiple application messages](#Sending multiple application messages)
-      * [2.2.12 Authorization field](#Authorization field) 
+      * [2.2.12 Authorization field](#Authorization field)
     * [3. Use inside of HTTP](#Use inside of HTTP)
     * [4. Peer-to-Peer Communication](#Peer-to-Peer Communication)
     * [5. Infrastructure considerations](#Infrastructure considerations)
       * [5.1 Message storage](#Message storage)
       * [5.2 Message routing](#Message routing)
         * [5.2.1 Message forwarding](#Message forwarding)
-
+    * [6. Short form synax](#Short form syntax)
 ---
 
 <a name="Introduction"></a>
@@ -535,3 +535,50 @@ For example:
 ```
 
 The message above might be sent to a router (service) which then parses the to field and realizes that the message is intended for a UK server. So it forwards the message to the uk-router which in turn sends the message to a server which hosts room 12.
+
+<a name="Short form syntax"></a>
+# 6. Short form syntax
+
+UMF is being used in IoT (Internet of Things) applications where message sizes need to remain small. To allow UMF to be used in resource contained environments a short form of UMF is offered.
+
+For each UMF keyword and abbreviated alternative may be used:
+
+Keyword | Abbreviation
+--- | ---
+authorization | aut
+body | bdy
+forward | fwd
+from | frm
+mid | mid
+priority | pri
+rmid | rmi
+timestamp | ts
+to | to
+ttl | ttl
+type | typ
+version | ver
+
+This is an example of a message in shorten format:
+
+```javascript
+{
+  "mid": "2b9c7ee51117",
+  "to": "uid:123",
+  "frm": "uid:56",
+  "ver": "UMF/1.4",
+  "ts": "2013-09-29T10:40Z",
+  "bdy": {
+    "msg": "How is it going?"
+  }
+}
+```
+
+When using UMF in IoT applications `mid` and `rmid` fields should use short hashes where possible. Also avoid using UMF fields which your application may not require such as `priority` and `type`.
+
+Also it's assumed that messages are transmitted as strings without carriage returns and line feeds to reduce transmission sizes.
+
+```
+{"mid": "2b9c7ee51117","to": "uid:123","frm": "uid:56","ver": "UMF/1.4","ts": "2013-09-29T10:40Z","bdy": {"msg": "How is it going?"}}
+```
+
+The use of gzip compression also greatly reduces message sizes.
