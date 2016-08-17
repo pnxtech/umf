@@ -30,13 +30,14 @@ UMF is licensed under the Open Source [The MIT License (MIT)](https://github.com
         * [2.2.11.2 Sending binary data](#Sending binary data)
         * [2.2.11.3 Sending multiple application messages](#Sending multiple application messages)
       * [2.2.12 Authorization field](#Authorization field)
-    * [3. Use inside of HTTP](#Use inside of HTTP)
-    * [4. Peer-to-Peer Communication](#Peer-to-Peer Communication)
-    * [5. Infrastructure considerations](#Infrastructure considerations)
-      * [5.1 Message storage](#Message storage)
-      * [5.2 Message routing](#Message routing)
-        * [5.2.1 Message forwarding](#Message forwarding)
-    * [6. Short form synax](#Short form syntax)
+  * [3. Use inside of HTTP](#Use inside of HTTP)
+  * [4. Peer-to-Peer Communication](#Peer-to-Peer Communication)
+  * [5. Infrastructure considerations](#Infrastructure considerations)
+    * [5.1 Message storage](#Message storage)
+    * [5.2 Message routing](#Message routing)
+      * [5.2.1 Message forwarding](#Message forwarding)
+  * [6. Short form syntax](#Short form syntax)
+
 ---
 
 <a name="Introduction"></a>
