@@ -542,7 +542,7 @@ The message above might be sent to a router (service) which then parses the to f
 
 UMF is being used in IoT (Internet of Things) applications where message sizes need to remain small. To allow UMF to be used in resource contained environments a short form of UMF is offered.
 
-For each UMF keyword and abbreviated alternative may be used:
+For each UMF keyword an abbreviated alternative may be used:
 
 Keyword | Abbreviation
 --- | ---
@@ -576,7 +576,7 @@ This is an example of a message in shorten format:
 
 When using UMF in IoT applications `mid` and `rmid` fields should use short hashes where possible. Also avoid using UMF fields which your application may not require such as `priority` and `type`.
 
-Also it's assumed that messages are transmitted as strings without carriage returns and line feeds to reduce transmission sizes.
+Also, it's assumed that messages are transmitted as strings without carriage returns and line feeds to reduce transmission sizes.
 
 ```
 {"mid": "2b9c7ee51117","to": "uid:123","frm": "uid:56","ver": "UMF/1.4","ts": "2013-09-29T10:40Z","bdy": {"msg": "How is it going?"}}
