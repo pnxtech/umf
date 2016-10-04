@@ -2,7 +2,7 @@
 A message format specification for use with distributed applications.
 
 ### Version
-The current version of this specification is: UMF/1.4.2, which introduces the `for` keyword.
+The current version of this specification is: UMF/1.4.3, which introduces the `via` keyword.
 
 ### License
 

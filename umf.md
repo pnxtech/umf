@@ -2,7 +2,7 @@
 A message format specification for use with distributed applications.
 
 ### Version
-The current version of this specification is: UMF/1.4.2, which introduces the `for` keyword.
+The current version of this specification is: UMF/1.4.3, which introduces the `Via` keyword.
 
 ### License
 
@@ -31,6 +31,7 @@ UMF is licensed under the Open Source [The MIT License (MIT)](https://github.com
         * [2.2.11.3 Sending multiple application messages](#Sending multiple application messages)
       * [2.2.12 Authorization field](#Authorization field)
       * [2.2.13 For - on behalf of](#For - on behalf of)
+      * [2.2.14 Via - sent through](#Via - sent through)
   * [3. Use inside of HTTP](#Use inside of HTTP)
   * [4. Peer-to-Peer Communication](#Peer-to-Peer Communication)
   * [5. Infrastructure considerations](#Infrastructure considerations)
@@ -76,7 +77,7 @@ In UMF the inner portion consists of UMF reserved key/value pairs with an option
   "to": "uid:123",
   "from": "uid:56",
   "type": "dm",
-  "version": "UMF/1.3",
+  "version": "UMF/1.4.3",
   "priority": "10",
   "timestamp": "2013-09-29T10:40Z",
   "body": {
@@ -463,6 +464,13 @@ In the example above the authorization field contains a JSON Web Token.
 The `for` field is used to indicate who a message is being send on behalf of. This helps support the use-case where a message may not be sent by an actual client but instead created by a service on behalf of a client. In this case routable information needs to be sent to help associate the entity which may ultimately require notification.
 
 The value of the `for` field is left up to the host application, but the use of unique hashes are recommended.
+
+<a name="Via - sent through"></a>
+### 2.2.14 Via - sent through
+
+The presence of a `via` field indicates that the message was sent via an intermediary such as a router.  When sending replies it's often useful to send the reply to the intermediary for routing.
+
+The format of the `via` field should be the same as `to` and `from` fields.
 
 <a name="Use inside of HTTP"></a>
 # 3. Use inside of HTTP
