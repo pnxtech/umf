@@ -413,22 +413,20 @@ An application may, for efficiency reasons, decide to bundle multiple sub-messag
     "type": "chat:messages",
     "messages": [
       {
-        "msg": {
-          "from": "moderator",
-          "text": "Susan welcome to chat Nation NYC",
-          "ts": "2013-09-29T10:34Z"
-        },
-       "msg": {
-         "from": "uid:16",
-         "text": "Rex, you are one lucky SOB!",
-         "ts": "2013-09-29T10:30Z"
-        },
-       "msg": {
-         "from": "uid:133",
-         "text": "Rex you're going down this next round",
-         "ts": "2013-09-29T10:31Z"
-       }
-     }
+        "from": "moderator",
+        "text": "Susan welcome to chat Nation NYC",
+        "ts": "2013-09-29T10:34Z"
+      },
+      {
+        "from": "uid:16",
+        "text": "Rex, you are one lucky SOB!",
+        "ts": "2013-09-29T10:30Z"
+      },
+      {
+        "from": "uid:133",
+        "text": "Rex you're going down this next round",
+        "ts": "2013-09-29T10:31Z"
+      }
     ]
   }
 }
