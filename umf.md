@@ -11,12 +11,12 @@ UMF is licensed under the Open Source [The MIT License (MIT)](https://github.com
 # Table of Contents
 
   * [1. Introduction](#Introduction)
-  * [2. Message Format](#Message Format)
-    * [2.1 Envelope format](#Envelope format)
-      * [2.1.1 Envelop format considerations for routing](#Envelop format considerations for routing)
-    * [2.2 Reserved Fields](#Reserved Fields)
-      * [2.2.1 Mid field (Message ID)](#Mid field (Message ID))
-      * [2.2.2 Rmid field (Refers to Message ID)](#Rmid field (Refers to Message ID))
+  * [2. Message Format](#Message-Format)
+    * [2.1 Envelope format](#Envelope-format)
+      * [2.1.1 Envelop format considerations for routing](#Envelop-format-considerations-for-routing)
+    * [2.2 Reserved Fields](#Reserved-Fields)
+      * [2.2.1 Mid field (Message ID)](#Mid field (Message-ID))
+      * [2.2.2 Rmid field (Refers to Message ID)](#Rmid field (ReferstoMessageID))
       * [2.2.3 To field (routing)](# To field (routing))
       * [2.2.4 Forward field (routing)](#Forward field (routing))
       * [2.2.5 From field (routing)](#From field (routing))
@@ -49,7 +49,7 @@ This specification describes an application-level messaging format suitable for 
 
 From this point forward we’ll refer to the Universal Messaging Format as UMF. We’ll also refer to UMFs as documents because they can be stored in memory, transmitted along communication channels and retained in offline storage and message queues.
 
-<a name="Message Format"></a>
+<a name="Message-Format"></a>
 ## 2. Message Format
 
 The UMF is a valid JSON document that is required to validate with existing JSON validators and thus be fully compliant with the JSON specification.
@@ -63,7 +63,7 @@ JSON Specification: http://www.json.org/
 
 JSON is a data interchange format based on JavaScript Object Notation. As such, UMF which is encoded in JSON, follows well established JavaScript naming conventions. For example, UMF retains the use of camel case for compound names.
 
-<a name="Envelope format"></a>
+<a name="Envelope-format"></a>
 ### 2.1 Envelope format
 
 UMF uses an envelope format where the outer portion is a valid JSON object and the inner portion consist of directives (headers) and a message body. Variations of this approach is used in the SOAP XML format where the outer portion is called an envelope and the inner portion contains both header and body sections. In other formats headers and body may be side by side as is the case of HTTP.
@@ -88,7 +88,7 @@ In UMF the inner portion consists of UMF reserved key/value pairs with an option
 
 Only UMF reserved words may be used. However, application specific (custom) key/value pairs may be used freely inside the `body` value.  This strict requirement ensures that the message format has a strict agreed upon format as defined by its version number.
 
-<a name="Envelop format considerations for routing"></a>
+<a name="Envelop-format-considerations-for-routing"></a>
 ## 2.1.1 Envelop format considerations for routing
 
 A UMF message is considered to be a system routable message. The UMF message fields aid first and foremost in routing but can also secondarily be used by message processing systems (i.e. message handlers) to obtain additional routing related fields.  However, the fields are reserved for routing systems and not intended to be extensible with application specific fields.  Where application specific fields are needs they should be placed in the `body` value instead.
