@@ -586,6 +586,7 @@ body | bdy
 for | for
 forward | fwd
 from | frm
+headers | hdr
 mid | mid
 priority | pri
 rmid | rmi
