@@ -2,7 +2,7 @@
 A message format specification for use with distributed applications.
 
 ### Version
-The current version of this specification is: UMF/1.4.3, which introduces the `Via` keyword.
+The current version of this specification is: UMF/1.4.4, which introduces the `Via` keyword.
 
 ### License
 
@@ -32,6 +32,7 @@ UMF is licensed under the Open Source [The MIT License (MIT)](https://github.com
       * [2.2.12 Authorization field](#Authorization-field)
       * [2.2.13 For - on behalf of](#For-on-behalf-of)
       * [2.2.14 Via - sent through](#Via-sent-through)
+      * [2.2.15 Headers - protocol headers](#Headers)
   * [3. Use inside of HTTP](#Use-inside-of-HTTP)
   * [4. Peer-to-Peer Communication](#Peer-to-Peer-Communication)
   * [5. Infrastructure considerations](#Infrastructure-considerations)
@@ -469,6 +470,26 @@ The value of the `for` field is left up to the host application, but the use of 
 The presence of a `via` field indicates that the message was sent via an intermediary such as a router.  When sending replies it's often useful to send the reply to the intermediary for routing.
 
 The format of the `via` field should be the same as `to` and `from` fields.
+
+<a name="Headers"></a>
+### 2.2.15 Headers - protocol headers
+
+When necessary communication protocol headers may be sent inside of a UMF message.
+
+```javascript
+{
+  "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
+  "to": "uid:123",
+  "from": "uid:56",
+  "version": "UMF/1.4.4",
+  "headers": {
+    "Content-Type": "text/html"
+  },
+  "body": {}
+}
+```
+
+The `header` field should contain an object consisting of key / value pairs.
 
 <a name="Use-inside-of-HTTP"></a>
 # 3. Use inside of HTTP
