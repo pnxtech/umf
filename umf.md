@@ -2,7 +2,7 @@
 A message format specification for use with distributed applications.
 
 ### Version
-The current version of this specification is: UMF/1.4.4, which introduces the `header` keyword.
+The current version of this specification is: UMF/1.4.5, which introduces the `timeout` keyword.
 
 ### License
 
@@ -33,6 +33,7 @@ UMF is licensed under the Open Source [The MIT License (MIT)](https://github.com
       * [2.2.13 For - on behalf of](#For-on-behalf-of)
       * [2.2.14 Via - sent through](#Via-sent-through)
       * [2.2.15 Headers - protocol headers](#Headers)
+      * [2.2.16 Timeout - timeout recommendation](#Timeout)
   * [3. Use inside of HTTP](#Use-inside-of-HTTP)
   * [4. Peer-to-Peer Communication](#Peer-to-Peer-Communication)
   * [5. Infrastructure considerations](#Infrastructure-considerations)
@@ -491,6 +492,27 @@ When necessary communication protocol headers may be sent inside of a UMF messag
 
 The `header` field should contain an object consisting of key / value pairs.
 
+<a name="Timeout"></a>
+### 2.2.16 Timeout - timeout recommendation
+
+Messages can carry a recommended timeout value which can be used at the descression of the application transport and routing layer. For example, an HTTP request may use this timeout to abort the wait for a response after some time.
+
+```javascript
+{
+  "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
+  "to": "uid:123",
+  "from": "uid:56",
+  "version": "UMF/1.4.5",
+  "timeout": 5,
+  "headers": {
+    "Content-Type": "text/html"
+  },
+  "body": {}
+}
+```
+
+The timeout value is a number representing a number of seconds. Sub-second timeout isn't supported.
+
 <a name="Use-inside-of-HTTP"></a>
 # 3. Use inside of HTTP
 
@@ -590,6 +612,7 @@ headers | hdr
 mid | mid
 priority | pri
 rmid | rmi
+timeout | tmo
 timestamp | ts
 to | to
 ttl | ttl
