@@ -2,7 +2,7 @@
 A message format specification for use with distributed applications.
 
 ### Version
-The current version of this specification is: UMF/1.4.5, which introduces the `timeout` keyword.
+The current version of this specification is: UMF/1.4.6, which introduces the `signature` keyword.
 
 ### License
 
@@ -34,6 +34,7 @@ UMF is licensed under the Open Source [The MIT License (MIT)](https://github.com
       * [2.2.14 Via - sent through](#Via-sent-through)
       * [2.2.15 Headers - protocol headers](#Headers)
       * [2.2.16 Timeout - timeout recommendation](#Timeout)
+      * [2.2.17 Signature field](#Signature)
   * [3. Use inside of HTTP](#Use-inside-of-HTTP)
   * [4. Peer-to-Peer Communication](#Peer-to-Peer-Communication)
   * [5. Infrastructure considerations](#Infrastructure-considerations)
@@ -513,6 +514,24 @@ Messages can carry a recommended timeout value which can be used at the descress
 
 The timeout value is a number representing a number of seconds. Sub-second timeout isn't supported.
 
+<a name="Signature"></a>
+### 2.2.17 Signature field
+
+Messages maybe signed with an HMAC signature to help ensure that can a message was created by a known source.
+
+```javascript
+{
+  "mid": "ef5a7369-f0b9-4143-a49d-2b9c7ee51117",
+  "to": "uid:123",
+  "from": "uid:56",
+  "version": "UMF/1.4.6",
+  "signature": "c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e",
+  "body": {}
+}
+```
+
+The creation of a signed UMF message is accomplished by first creating a UMF message and obtaining a signature using a cryptographic library and algorithm such as sha256. Once the signature is obtained it can be added to the UMF message using the signature field.  The recieving end of the UMF message would then remove the signature from the UMF message and perform the same HMAC pass using the shared secret. The message is considered valid if the resulting signatures match.
+
 <a name="Use-inside-of-HTTP"></a>
 # 3. Use inside of HTTP
 
@@ -612,6 +631,7 @@ headers | hdr
 mid | mid
 priority | pri
 rmid | rmi
+signature | sig
 timeout | tmo
 timestamp | ts
 to | to
