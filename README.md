@@ -2,7 +2,7 @@
 A message format specification for use with distributed applications.
 
 ### Version
-The current version of this specification is: UMF/1.4.4, which introduces the `headers` field.
+The current version of this specification is: UMF/1.4.6, which introduces the `signature` field for message signing.
 
 ### License
 
